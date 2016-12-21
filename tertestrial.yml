@@ -1,0 +1,10 @@
+actions:
+  unit-test:
+    - match:
+        filename: '\.js$'
+      command: 'mocha --reporter spec {{filename}}'
+
+  lint:
+    - match:
+        filename: '\.js$'
+      command: 'eslint {{filename}}'

@@ -5,6 +5,7 @@ cache:
 
 deploy:
   api_key: "$NPM_AUTH_TOKEN"
+  email: "charles.w.rudolph@gmail.com"
   on:
     node: '6'
     tags: true

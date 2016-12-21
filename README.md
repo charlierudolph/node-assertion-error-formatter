@@ -6,7 +6,7 @@ Format errors to display a diff between the actual and expected
 ```js
 import {format} from 'assertion-error-formatter'
 
-format(error) // error is an AssertionError
+format(error)
 ```
 
 ## API Reference

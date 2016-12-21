@@ -1,0 +1,27 @@
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+deploy:
+  api_key: "$NPM_AUTH_TOKEN"
+  on:
+    node: '6'
+    tags: true
+  provider: npm
+  skip_cleanup: true
+
+language: node_js
+
+node_js: "6"
+
+notifications:
+  email: false
+
+matrix:
+  include:
+    - node_js: "4"
+
+script: yarn run test
+
+sudo: false

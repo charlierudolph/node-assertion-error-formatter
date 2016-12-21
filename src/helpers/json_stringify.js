@@ -37,8 +37,7 @@ export default function jsonStringify(object, depth) {
 
 
 function jsonStringifyBuffer(object, depth) {
-  const json = object.toJSON()
-  const data = json.data && json.type ? json.data : json
+  const {data} = object.toJSON()
   return '[Buffer: ' + jsonStringify(data, depth) + ']'
 }
 

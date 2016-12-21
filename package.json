@@ -1,6 +1,6 @@
 {
   "name": "assertion-error-formatter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib --ignore '**/*_test.js' --retain-lines",
@@ -43,5 +43,7 @@
     "pad-right": "^0.2.2",
     "repeat-string": "^1.6.1"
   },
-  "files": ["lib"]
+  "files": [
+    "lib"
+  ]
 }

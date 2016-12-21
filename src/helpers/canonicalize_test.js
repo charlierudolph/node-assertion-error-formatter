@@ -19,7 +19,7 @@ const examples = [{
   outputDescription: 'the object with sorted keys'
 }, {
   input() {},
-  inputDescription: 'function with not properties',
+  inputDescription: 'function without properties',
   output: '[Function]',
   outputDescription: '[Function]'
 }, {

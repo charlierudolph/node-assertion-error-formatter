@@ -42,5 +42,6 @@
     "diff": "^3.0.0",
     "pad-right": "^0.2.2",
     "repeat-string": "^1.6.1"
-  }
+  },
+  "files": ["lib"]
 }

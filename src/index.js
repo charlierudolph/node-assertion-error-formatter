@@ -13,15 +13,14 @@ export function format(err, options) {
   if (!options) {
     options = {}
   }
-  if (!options.colorDiffAdded) {
-    options.colorDiffAdded = identity
+  if (!options.colorFns) {
+    options.colorFns = {}
   }
-  if (!options.colorDiffRemoved) {
-    options.colorDiffRemoved = identity
-  }
-  if (!options.colorErrorMessage) {
-    options.colorErrorMessage = identity
-  }
+  ['diffAdded', 'diffRemoved', 'errorMessage', 'errorStack'].forEach(function(key) {
+    if (!options.colorFns[key]) {
+      options.colorFns[key] = identity
+    }
+  })
 
   let message
   if (err.message && typeof err.message.toString === 'function') {
@@ -29,7 +28,7 @@ export function format(err, options) {
   } else if (typeof err.inspect === 'function') {
     message = err.inspect() + ''
   } else {
-    message = ''
+    message = err
   }
 
   let stack = err.stack || message
@@ -37,7 +36,7 @@ export function format(err, options) {
   if (startOfMessageIndex !== -1) {
     const endOfMessageIndex = startOfMessageIndex + message.length
     message = stack.slice(0, endOfMessageIndex)
-    stack = stack.slice(endOfMessageIndex + 1) // remove message from stack
+    stack = stack.slice(endOfMessageIndex) // remove message from stack
   }
 
   if (err.uncaught) {
@@ -54,17 +53,19 @@ export function format(err, options) {
     }
 
     const match = message.match(/^([^:]+): expected/)
-    message = options.colorErrorMessage(match ? match[1] : message)
+    message = options.colorFns.errorMessage(match ? match[1] : message)
 
     if (options.inlineDiff) {
-      message += inlineDiff(actual, expected, options)
+      message += inlineDiff(actual, expected, options.colorFns)
     } else {
-      message += unifiedDiff(actual, expected, options)
+      message += unifiedDiff(actual, expected, options.colorFns)
     }
+  } else {
+    message = options.colorFns.errorMessage(message)
   }
 
   if (stack) {
-    stack = stack.replace(/^/gm, '  ') // indent stack trace
+    stack = options.colorFns.errorStack(stack)
   }
 
   return message + stack

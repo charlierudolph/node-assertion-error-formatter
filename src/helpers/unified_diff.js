@@ -1,16 +1,16 @@
 import {createPatch} from 'diff'
 
-export default function unifiedDiff(actual, expected, options) {
-  const indent = '      '
+export default function unifiedDiff(actual, expected, colorFns) {
+  const indent = '    '
   function cleanUp(line) {
     if (line.length === 0) {
       return ''
     }
     if (line[0] === '+') {
-      return indent + options.colorDiffAdded(line)
+      return indent + colorFns.diffAdded(line)
     }
     if (line[0] === '-') {
-      return indent + options.colorDiffRemoved(line)
+      return indent + colorFns.diffRemoved(line)
     }
     if (line.match(/\@\@/)) {
       return null
@@ -25,9 +25,9 @@ export default function unifiedDiff(actual, expected, options) {
   }
   const msg = createPatch('string', actual, expected)
   const lines = msg.split('\n').splice(4)
-  return '\n      '
-    + options.colorDiffAdded('+ expected') + ' '
-    + options.colorDiffRemoved('- actual')
-    + '\n\n'
-    + lines.map(cleanUp).filter(notBlank).join('\n')
+  return '\n' + indent +
+    colorFns.diffAdded('+ expected') + ' ' +
+    colorFns.diffRemoved('- actual') +
+    '\n\n' +
+    lines.map(cleanUp).filter(notBlank).join('\n')
 }

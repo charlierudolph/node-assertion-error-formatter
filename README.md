@@ -15,11 +15,6 @@ format(error)
 
 * `error`: a javascript error
 * `options`: An object with the following keys:
-  * `colorDiffAdded(str)`: function (default: identity)
-    * colorizes a string, used in diffs to highlight the added lines
-  * `colorDiffRemoved(str)`: function (default: identity)
-    * colorizes a string, used in diffs to highlight the removed lines
-  * `colorErrorMessage(str)`: function (default: identity)
-    * colorizes a string, used for the error message
+  * `colorFns`: An object with the keys 'diffAdded', 'diffRemoved', 'errorMessage', 'errorStack'. The values are functions to colorize a string, each defaults to identity.
   * `inlineDiff`: boolean (default: false)
     * toggle between inline and unified diffs

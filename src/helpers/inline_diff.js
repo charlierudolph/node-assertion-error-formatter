@@ -2,8 +2,8 @@ import {diffWordsWithSpace} from 'diff'
 import padRight from 'pad-right'
 
 
-export default function inlineDiff(actual, expected, options) {
-  let msg = errorDiff(actual, expected, options)
+export default function inlineDiff(actual, expected, colorFns) {
+  let msg = errorDiff(actual, expected, colorFns)
 
   // linenos
   const lines = msg.split('\n')
@@ -15,25 +15,25 @@ export default function inlineDiff(actual, expected, options) {
   }
 
   // legend
-  msg = '\n      '
-    + options.colorDiffRemoved('actual')
+  msg = '\n    '
+    + colorFns.diffRemoved('actual')
     + ' '
-    + options.colorDiffAdded('expected')
+    + colorFns.diffAdded('expected')
     + '\n\n'
-    + msg.replace(/^/gm, '      ')
+    + msg.replace(/^/gm, '    ')
     + '\n'
 
   return msg
 }
 
 
-function errorDiff(actual, expected, options) {
+function errorDiff(actual, expected, colorFns) {
   return diffWordsWithSpace(actual, expected).map(function(str) {
     if (str.added) {
-      return options.colorDiffAdded(str.value)
+      return colorFns.diffAdded(str.value)
     }
     if (str.removed) {
-      return options.colorDiffRemoved(str.value)
+      return colorFns.diffRemoved(str.value)
     }
     return str.value
   }).join('')

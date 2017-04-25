@@ -2,6 +2,8 @@
 
 Format errors to display a diff between the actual and expected
 
+Originally extracted from [mocha](https://github.com/mochajs/mocha)
+
 ## Usage
 ```js
 import {format} from 'assertion-error-formatter'

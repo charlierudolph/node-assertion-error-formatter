@@ -1,6 +1,6 @@
 # 2.0.1
 
-* support objects error without stack
+* support object errors without stack
 * better formatting for errors where the stack does not include the message
 
 # 2.0.0

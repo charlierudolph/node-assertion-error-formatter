@@ -27,13 +27,17 @@ export function format(err, options) {
     message = err.message + ''
   } else if (typeof err.inspect === 'function') {
     message = err.inspect() + ''
-  } else {
+  } else if (typeof err === 'string') {
     message = err
+  } else {
+    message = JSON.stringify(err)
   }
 
   let stack = err.stack || message
   const startOfMessageIndex = stack.indexOf(message)
-  if (startOfMessageIndex !== -1) {
+  if (startOfMessageIndex === -1) {
+    stack = '\n' + stack
+  } else {
     const endOfMessageIndex = startOfMessageIndex + message.length
     message = stack.slice(0, endOfMessageIndex)
     stack = stack.slice(endOfMessageIndex) // remove message from stack

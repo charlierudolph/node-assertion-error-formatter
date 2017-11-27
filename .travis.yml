@@ -7,21 +7,20 @@ deploy:
   api_key: "$NPM_AUTH_TOKEN"
   email: "charles.w.rudolph@gmail.com"
   on:
-    node: '6'
+    node: '8'
     tags: true
   provider: npm
   skip_cleanup: true
 
 language: node_js
 
-node_js: "6"
+node_js:
+  - 8
+  - 6
+  - 4
 
 notifications:
   email: false
-
-matrix:
-  include:
-    - node_js: "4"
 
 script: yarn run test
 

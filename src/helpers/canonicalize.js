@@ -1,40 +1,42 @@
-import hasProperty from './has_property'
-import type from './type'
+import hasProperty from './has_property';
+import type from './type';
 
 export default function canonicalize(value, stack) {
-  stack = stack || []
+  stack = stack || [];
 
   function withStack(fn) {
-    stack.push(value)
-    const result = fn()
-    stack.pop()
-    return result
+    stack.push(value);
+    const result = fn();
+    stack.pop();
+    return result;
   }
 
   if (stack.indexOf(value) !== -1) {
-    return '[Circular]'
+    return '[Circular]';
   }
 
   switch (type(value)) {
     case 'array':
       return withStack(function() {
         return value.map(function(item) {
-          return canonicalize(item, stack)
-        })
-      })
+          return canonicalize(item, stack);
+        });
+      });
     case 'function':
       if (!hasProperty(value)) {
-        return '[Function]'
+        return '[Function]';
       }
     /* falls through */
     case 'object':
       return withStack(function() {
-        const canonicalizedObj = {}
-        Object.keys(value).sort().map(function(key) {
-          canonicalizedObj[key] = canonicalize(value[key], stack)
-        })
-        return canonicalizedObj
-      })
+        const canonicalizedObj = {};
+        Object.keys(value)
+          .sort()
+          .map(function(key) {
+            canonicalizedObj[key] = canonicalize(value[key], stack);
+          });
+        return canonicalizedObj;
+      });
     case 'boolean':
     case 'buffer':
     case 'date':
@@ -43,8 +45,8 @@ export default function canonicalize(value, stack) {
     case 'regexp':
     case 'symbol':
     case 'undefined':
-      return value
+      return value;
     default:
-      return value.toString()
+      return value.toString();
   }
 }

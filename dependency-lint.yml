@@ -18,11 +18,19 @@ ignoreErrors:
   shouldBeDependency: []
   shouldBeDevDependency: []
   unused:
-    - babel-core # dependency-lint.yml
+    - '@babel/core' # dependency-lint.yml
+    - '@babel/preset-env' # .babelrc
+    - '@babel/register' # .mocharc.yml
     - babel-eslint # .eslintrc.yml
-    - babel-preset-es2015 # .babelrc
-    - babel-register # test/mocha.opts
-    - eslint-plugin-babel # .eslintrc.yml - parser
+    - eslint-config-prettier # .eslintrc.yml
+    - eslint-config-standard # .eslintrc.yml
+    - eslint-plugin-babel # .eslintrc.yml
+    - eslint-plugin-import # peer dependency of eslint-config-standard
+    - eslint-plugin-node # peer dependency of eslint-config-standard
+    - eslint-plugin-prettier # .eslintrc.yml
+    - eslint-plugin-promise # peer dependency of eslint-config-standard
+    - eslint-plugin-standard # peer dependency of eslint-config-standard
+    - prettier # peer dependency of eslint-plugin-prettier
 
 requiredModules:
   files:
@@ -36,5 +44,5 @@ requiredModules:
   transpilers:
     - extension: .js
       fnName: transform
-      module: babel-core
+      module: '@babel/core'
       resultKey: code

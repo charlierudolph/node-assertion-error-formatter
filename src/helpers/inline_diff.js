@@ -1,5 +1,4 @@
 import { diffWordsWithSpace } from 'diff';
-import padRight from 'pad-right';
 
 export default function inlineDiff(actual, expected, colorFns) {
   let msg = errorDiff(actual, expected, colorFns);
@@ -10,7 +9,7 @@ export default function inlineDiff(actual, expected, colorFns) {
     const width = String(lines.length).length;
     msg = lines
       .map(function(str, i) {
-        return padRight(i + 1, width, ' ') + '|' + ' ' + str;
+        return `${i + 1}`.padEnd(width, ' ') + '|' + ' ' + str;
       })
       .join('\n');
   }

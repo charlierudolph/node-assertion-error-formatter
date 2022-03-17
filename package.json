@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "diff": "^4.0.1",
-    "pad-right": "^0.2.2",
     "repeat-string": "^1.6.1"
   },
   "files": [

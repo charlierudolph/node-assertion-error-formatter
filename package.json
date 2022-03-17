@@ -49,6 +49,9 @@
   "dependencies": {
     "diff": "^4.0.1"
   },
+  "engines": {
+    "node": ">= 12"
+  },
   "files": [
     "lib"
   ]

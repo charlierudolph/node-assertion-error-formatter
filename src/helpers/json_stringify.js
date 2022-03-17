@@ -1,4 +1,3 @@
-import repeatString from 'repeat-string';
 import type from './type';
 
 export default function jsonStringify(object, depth) {
@@ -65,7 +64,7 @@ function jsonStringifyProperties(object, depth) {
       addedProperties += 1;
       str +=
         '\n' +
-        repeatString(' ', space) +
+        ' '.repeat(space) +
         (type(object) === 'array' ? '' : '"' + prop + '": ') +
         jsonStringify(object[prop], depth + 1) +
         (addedProperties === length ? '' : ',');
@@ -73,7 +72,7 @@ function jsonStringifyProperties(object, depth) {
   }
 
   if (str.length !== 1) {
-    str += '\n' + repeatString(' ', space - 2);
+    str += '\n' + ' '.repeat(space - 2);
   }
 
   return str + end;
